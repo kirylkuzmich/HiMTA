@@ -1,0 +1,41 @@
+service namespace "HiMTA_Kuzmich"{
+
+    "HiMTA_Kuzmich::User" as "Users"
+            navigates("Users_2_Address" as "toAddress", "Users_2_Cars" as "toCars")
+            create using "xsjs.user:usersCreate.xsjslib::usersCreate"
+            update forbidden
+            delete forbidden;
+
+    "HiMTA_Kuzmich::Address" as "Address"
+            navigates("Address_2_User" as "toUser")
+            create forbidden
+            update forbidden
+            delete forbidden;
+
+    "HiMTA_Kuzmich::Car" as "Cars"
+            navigates("Cars_2_User" as "toUser", "Cars_2_CarService" as "toCarService")
+            create forbidden
+            update forbidden
+            delete forbidden;
+
+    "HiMTA_Kuzmich::Service" as "Services"
+            navigates("Services_2_CarService" as "toCarService")
+            create forbidden
+            update forbidden
+            delete forbidden;
+
+    "HiMTA_Kuzmich::CarService" as "CarService"
+            navigates("CarService_2_Service" as "toService,")
+            create forbidden
+            update forbidden
+            delete forbidden;
+
+    association "Users_2_Address" principal "Users"("usid")
+            multiplicity "1" dependent "Address"("usid") multiplicity "1";
+
+    association "Users_2_Cars" principal "Users"("usid")
+            multiplicity "1" dependent "Cars"("usid") multiplicity "*";
+
+    association "Cars_2_User" principal "Cars"("usid")
+            multiplicity "1" dependent "Users"("usid") multiplicity "1";
+}

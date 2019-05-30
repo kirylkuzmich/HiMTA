@@ -1,0 +1,16 @@
+namespace HiMTA_Kuzmich;
+using HiMTA_Kuzmich::Service;
+using HiMTA_Kuzmich::Car;
+
+entity CarService {
+    @Comment: 'Id of Service Car'
+    key scid : Integer64 generated always as identity ( start with 1 increment by 1 );
+    @Comment: 'Id of Service'
+    key svid : String(4);
+    @Comment: 'Id of Car'
+    key crid : String(4);
+
+
+    toCar : Association[1] to Car on toCar.crid = crid;
+    toService : Association[1] to Service on toService.svid = svid;
+};

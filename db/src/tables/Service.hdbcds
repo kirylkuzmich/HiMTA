@@ -1,0 +1,11 @@
+namespace HiMTA_Kuzmich;
+using HiMTA_Kuzmich::CarService;
+
+entity Service {
+    @Comment: 'Id of Service'
+    key svid : String(4);
+    @Comment: 'Description'
+    name : String(100);
+
+    toCarService : Association[*] to CarService on toCarService.svid = svid;
+};
