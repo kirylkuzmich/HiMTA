@@ -76,7 +76,7 @@ Caused by: java.io.IOException: CreateProcess error=2, The system cannot find th
 	... 69 more
 [main] INFO com.sap.di.ext.mta.proc.DescriptorProcessorImpl - MTA manifest processing on 3 threads
 [main] INFO com.sap.di.ext.mta.cli.CliExecutor - arguments: [--build-target=CF, build]
-[main] INFO com.sap.di.ext.mta.cli.CliExecutor - Archive path is D:\Development\SAP Cloud Foundry\HiMTA_02\HiMTA_02.mtar
+[main] INFO com.sap.di.ext.mta.cli.CliExecutor - Archive path is D:\Development\SAP Cloud Foundry\HiMTA\HiMTA.mtar
 [main] DEBUG com.sap.di.ext.mta.cli.CliBuildExecutor - Starting MTA build
 [main] INFO com.sap.di.beans.DynamicBeans - Created implementation class com.sap.di.ext.mta.dto.DesignDescriptor$$impl0 for bean interface com.sap.di.ext.mta.dto.DesignDescriptor
 [main] INFO com.sap.di.beans.DynamicBeans - Created implementation class com.sap.di.ext.mta.dto.DesignModule$$impl1 for bean interface com.sap.di.ext.mta.dto.DesignModule
@@ -94,10 +94,10 @@ Caused by: java.io.IOException: CreateProcess error=2, The system cannot find th
 [pool-1-thread-1] INFO com.sap.di.ext.mta.proc.ProcessingRun - Verifying MTA HiMTA_Kuzmich: finished symbol resource[lev_hdi]
 [pool-1-thread-3] DEBUG com.sap.di.ext.mta.cli.CommandHelper - Module 'service': command timeout is 300 seconds
 [pool-1-thread-2] DEBUG com.sap.di.ext.mta.cli.CommandHelper - Module 'db': command timeout is 300 seconds
-[pool-1-thread-3] DEBUG com.sap.di.ext.mta.cli.CommandHelper - Module 'service': command output file is D:\Development\SAP Cloud Foundry\HiMTA_02\.mta\modulebuild2446051324255492453.txt
-[pool-1-thread-3] DEBUG com.sap.di.ext.mta.cli.CommandHelper - Module 'service': invoking command [npm.cmd, install, --production]
-[pool-1-thread-2] DEBUG com.sap.di.ext.mta.cli.CommandHelper - Module 'db': command output file is D:\Development\SAP Cloud Foundry\HiMTA_02\.mta\modulebuild8796643903723832492.txt
+[pool-1-thread-2] DEBUG com.sap.di.ext.mta.cli.CommandHelper - Module 'db': command output file is D:\Development\SAP Cloud Foundry\HiMTA\.mta\modulebuild7335463467662909777.txt
+[pool-1-thread-3] DEBUG com.sap.di.ext.mta.cli.CommandHelper - Module 'service': command output file is D:\Development\SAP Cloud Foundry\HiMTA\.mta\modulebuild8891813662232862742.txt
 [pool-1-thread-2] DEBUG com.sap.di.ext.mta.cli.CommandHelper - Module 'db': invoking command [npm.cmd, install, --production]
+[pool-1-thread-3] DEBUG com.sap.di.ext.mta.cli.CommandHelper - Module 'service': invoking command [npm.cmd, install, --production]
 [pool-1-thread-2] INFO com.sap.di.ext.mta.proc.ProcessingRun - Verifying MTA HiMTA_Kuzmich: finished symbol module[db]
 [pool-1-thread-3] INFO com.sap.di.ext.mta.proc.ProcessingRun - Verifying MTA HiMTA_Kuzmich: finished symbol module[service]
 [main] INFO com.sap.di.beans.DynamicBeans - Created implementation class com.sap.di.ext.mta.dto.DeploymentDescriptor$$impl6 for bean interface com.sap.di.ext.mta.dto.DeploymentDescriptor

@@ -25,7 +25,7 @@ service namespace "HiMTA_Kuzmich"{
             delete forbidden;
 
     "HiMTA_Kuzmich::CarService" as "CarService"
-            navigates("CarService_2_Service" as "toService,")
+            navigates("CarService_2_Service" as "toService", "CarService_2_Car" as "toCar")
             create forbidden
             update forbidden
             delete forbidden;
@@ -36,6 +36,21 @@ service namespace "HiMTA_Kuzmich"{
     association "Users_2_Cars" principal "Users"("usid")
             multiplicity "1" dependent "Cars"("usid") multiplicity "*";
 
+    association "Address_2_User" principal "Address"("usid")
+            multiplicity "1" dependent "Users"("usid") multiplicity "1";
+
     association "Cars_2_User" principal "Cars"("usid")
             multiplicity "1" dependent "Users"("usid") multiplicity "1";
+
+    association "Cars_2_CarService" principal "Cars"("crid")
+            multiplicity "1" dependent "CarService"("crid") multiplicity "1";
+
+    association "Services_2_CarService" principal "Services"("svid")
+            multiplicity "1" dependent "CarService"("svid") multiplicity "1";
+
+    association "CarService_2_Car" principal "CarService"("crid")
+            multiplicity "1" dependent "Cars"("crid") multiplicity "*";
+
+    association "CarService_2_Service" principal "CarService"("svid")
+            multiplicity "1" dependent "Services"("svid") multiplicity "*";
 }

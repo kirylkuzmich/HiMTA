@@ -11,5 +11,5 @@ entity Car {
     name : String(100);
 
     toUser : Association[1] to User on toUser.usid = usid;
-    toCarService : Association[1] to CarService on toCarService.crid = crid;
+    toCarService : Association[*] to CarService on toCarService.crid = crid;
 };
