@@ -3,7 +3,7 @@ service namespace "HiMTA_Kuzmich"{
     "HiMTA_Kuzmich::User" as "Users"
             navigates("Users_2_Address" as "toAddress", "Users_2_Cars" as "toCars")
             create using "xsjs.user:usersCreate.xsjslib::usersCreate"
-            update forbidden
+            update "xsjs.user:usersCreate.xsjslib::usersCreate"
             delete forbidden;
 
     "HiMTA_Kuzmich::Address" as "Address"

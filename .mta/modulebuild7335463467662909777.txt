@@ -1,7 +1,0 @@
-npm WARN deploy@ No description
-npm WARN deploy@ No repository field.
-npm WARN deploy@ No license field.
-
-audited 42 packages in 2.02s
-found 1 high severity vulnerability
-  run `npm audit fix` to fix them, or `npm audit` for details

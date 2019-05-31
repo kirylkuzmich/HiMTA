@@ -1,19 +1,26 @@
+const StatementCreator = $.import('xsjs.statement', 'statementCreator').statementCreator;
+const statementCreator = new StatementCreator();
+
 var user = function (connection) {
 
-    const USER_TABLE = "HiMTA::User";
-    /*
-            const USER = $.session.securityContext.userInfo.familyName ?
-                $.session.securityContext.userInfo.familyName + " " + $.session.securityContext.userInfo.givenName :
-                $.session.getUsername().toLocaleLowerCase(),
-    */
+    const USER_TABLE = "HiMTA_Kuzmich::User";
+    const SEQ_NAME = "HiMTA_Kuzmich::userid";
+
+    this.doGet = function(){
+        const statement = `select * from "${USER_TABLE}"`;
+        const result = connection.executeQuery(statement);
+
+        $.response.status = $.net.http.OK;
+        $.response.setbody(JSON.stringify(result));
+    }
 
 
     this.doPost = function (oUser) {
         //Get Next ID Number
-        oUser.usid = getNextval("HiMTA::usid");
+        oUser.usid = getNextval(SEQ_NAME);
 
         //generate query
-        const statement = createPreparedInsertStatement(USER_TABLE, oUser);
+        const statement = statementCreator.createPreparedInsertStatement(USER_TABLE, oUser);
         //execute update
         connection.executeUpdate(statement.sql, statement.aValues);
 
@@ -23,25 +30,23 @@ var user = function (connection) {
     };
 
     this.doPut = function (obj) {
-        //TODO
+        const statement = statementCreator.createUpdateStatement(USER_TABLE, oUser);
+        connection.executeUpdate(statement.sql, statement.aValues);
+
+        connection.commit();
+        $.response.status = $.net.http.CREATED;
+        $.response.setBody(JSON.stringify(oUser));
     };
 
 
     this.doDelete = function (usid) {
-        const statement = createPreparedDeleteStatement(USER_TABLE, {usid: usid});
+        const statement = statementCreator.createDeleteStatement(USER_TABLE, {usid: usid});
         connection.executeUpdate(statement.sql, statement.aValues);
 
         connection.commit();
         $.response.status = $.net.http.OK;
         $.response.setBody(JSON.stringify({}));
     };
-
-
-
-
-
-
-
 
     function getNextval(sSeqName) {
         const statement = `select "${sSeqName}".NEXTVAL as "ID" from dummy`;
@@ -53,55 +58,4 @@ var user = function (connection) {
             throw new Error('ID was not generated');
         }
     }
-
-    function createPreparedInsertStatement(sTableName, oValueObject) {
-        let oResult = {
-            aParams: [],
-            aValues: [],
-            sql: "",
-        };
-
-        let sColumnList = '', sValueList = '';
-
-        oValueObject.forEach((value, key) => {
-            sColumnList += `"${key}",`;
-            sValueList += "?, ";
-
-            result.aValues.push(value);
-            result.aParams.push(key);
-        });
-        // Remove the last unnecessary comma and blank
-        sColumnList = sColumnList.slice(0, -2);
-        sValueList = sValueList.slice(0, -2);
-
-        oResult.sql = `insert into "${tableName}" (${sColumnList}) values (${sValueList})`;
-
-        $.trace.error("sql to insert: " + oResult.sql);
-        return oResult;
-    };
-
-    function createPreparedDeleteStatement(sTableName, oConditionObject) {
-        let oResult = {
-            aParams: [],
-            aValues: [],
-            sql: "",
-        };
-
-        let sWhereClause = '';
-        for (let key in oConditionObject) {
-            sWhereClause += `"${key}"=? and `;
-            oResult.aValues.push(oConditionObject[key]);
-            oResult.aParams.push(key);
-        }
-        // Remove the last unnecessary AND
-        sWhereClause = sWhereClause.slice(0, -5);
-        if (sWhereClause.length > 0) {
-            sWhereClause = " where " + sWhereClause;
-        }
-
-        oResult.sql = `delete from "${sTableName}" ${sWhereClause}`;
-
-        $.trace.error("sql to delete: " + oResult.sql);
-        return oResult;
-    };
 };
